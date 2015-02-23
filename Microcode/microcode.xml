@@ -1,17 +1,38 @@
 <Microcode>
 <!--FetchMacroState -->
-	<State name="FETCH0" onZ="false">
+	<State name="FETCH0" IntOut="true"> <!--Save PC in $k0-->
+		<Signal name="DrPC"/>
+		<Signal name="WrREG"/>
+		<Signal name="RegSelLo"/>
+		<Signal name="RegSelHi"/>
+		<Goto state="FETCH2"/>
+	</State>
+	<State name="FETCH1" IntOut="false">
+		<Goto state="FETCH4"/>
+	</State>
+	<State name = "FETCH2">
+		<Signal name="LdEnInt"/>
+		<Signal name="IntAck"/>
+		<Signal name="LdMAR"/>
+		<Goto state="FETCH3"/>
+	</State>
+	<State name="FETCH3">
+		<Signal name="DrMEM"/>
+		<Signal name="LdPC"/>
+		<Goto state="FETCH4"/>
+	</State>
+	<State name="FETCH4" onZ="false">
 		<Signal name="DrPC"/>
 		<Signal name="LdA"/>
 		<Signal name="LdMAR"/>
 		<Goto state="FETCH1"/>
 	</State>
-	<State name="FETCH1">
+	<State name="FETCH5">
 		<Signal name="DrMEM"/>
 		<Signal name="LdIR"/>
 		<Goto state="FETCH2"/>
 	</State>
-	<State name="FETCH2">
+	<State name="FETCH6">
 		<Signal name="ALULo"/>
 		<Signal name="ALUHi"/>
 		<Signal name="DrALU"/>
@@ -171,6 +192,7 @@
 
 <!--EI-->
 	<State name = "EI0">
+		<Signal name="LdEnInt"/>
 		<Goto state = "HALT0"/>
 	</State>
 <!--DI-->
