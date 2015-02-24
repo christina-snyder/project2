@@ -193,15 +193,26 @@
 <!--EI-->
 	<State name = "EI0">
 		<Signal name="LdEnInt"/>
-		<Goto state = "HALT0"/>
+		<Signal name="DrEnInt"/>
+		<Goto state = "FETCH0"/>
 	</State>
 <!--DI-->
 	<State name = "DI0">
-		<Goto state = "HALT0"/>
+		<Signal name="LdEnInt"/>
+		<Goto state = "FETCH0"/>
 	</State>
 <!--RETI-->
 	<State name = "RETI0">
-		<Goto state = "HALT0"/>
+		<Signal name="DrPC"/>
+		<Signal name="WrREG"/>
+		<Signal name="RegSelLo"/>
+		<Signal name="RegSelHi"/>
+		<Goto state = "RETI1"/>
+	</State>
+	<State name = "RETI1">
+		<Signal name="LdEnInt"/>
+		<Signal name="DrEnInt"/>
+		<Goto state = "FETCH0"/>
 	</State>
 <!--BONI-->
 	<State name = "BONI0">
